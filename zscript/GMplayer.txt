@@ -1,0 +1,25 @@
+class GrandmasterPlayer : DoomPlayer
+{
+	default
+	{
+		Player.MaxHealth 100;
+		Player.Viewheight 48;
+		Player.AttackZOffset 14;
+		// Make sure all newly defined weapons that reload are included here so they start with ammo.
+		Player.DisplayName "Tactician";
+        Player.StartItem "WWGMWeapon";
+	}
+    
+    /*
+    override void Tick()
+    {
+        if     (GetCvar("wwgm_playersound") == 0) { SoundClass = "RobinM1"; }     //"Male";
+        else if(GetCvar("wwgm_playersound") == 1) { SoundClass = "RobinM2"; } //"VERY Male";
+        else if(GetCvar("wwgm_playersound") == 2) { SoundClass = "RobinM3"; }   //"Female";
+        else if(GetCvar("wwgm_playersound") == 3) { SoundClass = "RobinF1"; } //"Pepsimaaaan!";
+        else if(GetCvar("wwgm_playersound") == 4) { SoundClass = "RobinF2"; }  //"Gender-neutral";
+        else if(GetCvar("wwgm_playersound") == 5) { SoundClass = "RobinF3"; }     //"WTF?";
+    return Super.Tick();
+    }
+    */
+}

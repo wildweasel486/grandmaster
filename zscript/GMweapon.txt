@@ -1,0 +1,150 @@
+class WWGMWeapon : Weapon replaces Fist
+{
+    default
+    {
+        Weapon.BobStyle "Alpha";
+        Weapon.BobSpeed 2.5;
+        Weapon.BobRangeX 0.2;
+        Weapon.BobRangeY 0.5;
+        Inventory.Icon "UNKNA0"; // if no icon defined, show <!> instead.
+        +Weapon.NoAlert
+        +Inventory.AlwaysPickup
+        +Weapon.Ammo_Optional
+        +Weapon.NoAutoFire
+    }
+    //int buttons;
+    int SwordSwing; // Tracks how far across the screen the pan attack is.
+    int SwordBusy;
+	States
+	{
+	Select:
+		TNT1 A 1 A_Raise;
+		Wait;
+	Deselect:
+		TNT1 A 1 A_Lower;
+		Wait;
+	Ready:
+        //TNT1 A 0 A_LogInt(invoker.SwordSwing);
+		TNT1 A 1 A_WeaponReady;
+        /*TNT1 A 1 {
+            invoker.buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+            A_LogInt(invoker.buttons);
+            if ( invoker.buttons & BT_ATTACK && invoker.SwordBusy != 1 )
+            {
+                A_Overlay(69, "SwordSwing");
+            }
+        }*/
+		Loop;
+	Flash:
+		TNT1 A 1 A_Light2;
+		TNT1 A 1 A_Light1;
+		Goto LightDone;
+    Altfire:
+        VDCX AAAA 1 A_WeaponOffset(4, -16, WOF_KEEPX|WOF_INTERPOLATE|WOF_ADD);
+		VDCX A 1 A_WeaponOffset(0, 32, WOF_INTERPOLATE);
+		VDCX A 1 A_FireCustomMissile("CrossbowFX2", frandom(-2.0, 2.0), 0, 8, frandom(-2.0, 2.0));
+		VDCX AAAA 1 A_WeaponOffset(-4, 16, WOF_INTERPOLATE|WOF_ADD);
+		TNT1 A 2;
+		Goto Ready;
+	Fire:
+        TNT1 A 1 {
+            if ( invoker.SwordBusy != 1 ) { A_Overlay(69, "SwordSwing"); }
+        }
+        Goto Ready;
+    SwordSwing:
+		FPAN A 0 {
+            invoker.SwordBusy = 1;
+            A_OverlayFlags(69, PSPF_ADDWEAPON, 0);
+            /*if ( GetCvar("cola_playersound") == 1)
+            {
+                A_PlaySound("ColaVeryMaleAttack", CHAN_VOICE);
+            }*/
+        }
+		FPAN A 0 {
+			A_OverlayOffset(69, -128, 8);
+            A_PlaySound("mummy/attack2", CHAN_WEAPON);
+        }
+    SwordContinue:
+        FPAN A 1;
+		FPAN A 0
+		{
+            int runPunch = 50 + ( Vel.XY.Length() * 3); // Adds player's run speed to melee damage. It's fun!
+            //A_LogInt(runpunch);
+            if ( invoker.SwordSwing == 10 )
+            {
+                invoker.SwordSwing = 0;
+                A_TakeInventory("MeleeHitSomething", 999); // For safety
+                return ResolveState("SwordFinish"); // Pan's made it across the screen, erase it.
+            }
+            A_OverlayOffset(69, 80, 12, WOF_INTERPOLATE|WOF_ADD);
+            if ( CountInv("MeleeHitSomething") == 1 )
+            {
+                invoker.SwordSwing = 10;
+                return ResolveState("SwordPreRecoil");
+            }
+			else if ( CountInv("PowerWeaponLevel2") >= 1 )
+			{
+				A_CustomPunch(runPunch * 3,1,0,"SwordHitPuff", 100);
+			}
+			else
+			{
+				A_CustomPunch(runPunch,1,0,"SwordHitPuff", 100);
+			}
+            invoker.SwordSwing++;
+            return ResolveState("SwordContinue");
+        }
+		Stop;
+    SwordPreRecoil:
+        FPAN AAAA 1 A_OverlayOffset(69, random(-2, 0), random(-2, 0), WOF_ADD);
+    SwordRecoil:
+        FPAN A 1 A_OverlayOffset(69, (-12 + random(-2, 2)), (24 + random(-2, 2)), WOF_INTERPOLATE|WOF_ADD);
+        FPAN A 0
+        {
+            A_TakeInventory("MeleeHitSomething", 999);
+            if ( invoker.SwordSwing > 0 )
+            {
+                invoker.SwordSwing--;
+                return ResolveState("SwordRecoil");
+            }
+            else
+            {
+                return ResolveState("SwordFinish");
+            }
+        }
+        Stop;
+    SwordFinish:
+        FPAN A 5;
+        FPAN A 0 {
+            invoker.SwordBusy = 0;
+        }
+        Stop;
+	}
+}
+
+class MeleeHitSomething : Inventory {}
+
+class SwordHitPuff : Actor
+{
+    default
+    {
+        +NOBLOCKMAP
+        +NOGRAVITY
+        +PUFFONACTORS
+        +PUFFGETSOWNER
+        +THRUGHOST
+        +NOEXTREMEDEATH
+        activesound "";
+        attacksound "weapons/staffhit";
+        seesound "weapons/staffhit";
+    }
+	states
+	{
+	Spawn:
+	Crash:
+	Melee:
+		// TNT1 AAAAA 0 NoDelay A_SpawnItemEx("GunSmoke", 0,0,0, random(-1,1),random(-1,1),random(-1,1), 0, SXF_NOCHECKPOSITION)
+        TNT1 A 0 A_GiveToTarget("MeleeHitSomething", 1);
+		TNT1 A 5 A_Quake(3,10,0,100,"");
+		stop;
+	}
+}
