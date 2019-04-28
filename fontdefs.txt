@@ -1,0 +1,4 @@
+WWFONT
+{
+    Template WWFNT%03d
+}

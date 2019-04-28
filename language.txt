@@ -1,0 +1,6 @@
+[default en]
+
+GM_SWORD0 = "Bare Hands";
+GM_SWORD1 = "Bronze Sword";
+
+GM_POWERRING = "Power Ring";
