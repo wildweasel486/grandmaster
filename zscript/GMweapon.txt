@@ -1,5 +1,28 @@
+enum GMSwordEnum
+{
+    SWORD_None,
+    SWORD_Bronze,
+    SWORD_Iron,
+    SWORD_Steel,
+    SWORD_Silver,
+    SWORD_Mystletainn,
+};
+/* // Get assistance with this later.
+SpriteID GetSwordSprite(int type)
+    {
+        switch (type)
+        {
+        default:
+        case SWORD_None:   return GetSpriteIndex("PUNGA");
+        case SWORD_Bronze: return GetSpriteIndex("FPANA");
+        // ...
+        }
+    }
+*/
 class WWGMWeapon : Weapon replaces Fist
 {
+    
+    
     default
     {
         Weapon.BobStyle "Alpha";
@@ -54,22 +77,24 @@ class WWGMWeapon : Weapon replaces Fist
     SwordSwing:
 		FPAN A 0 {
             invoker.SwordBusy = 1;
+            //sprite = invoker.GetSwordSprite(GMSwordType);
+            //sprite = "FPAN";
             A_OverlayFlags(69, PSPF_ADDWEAPON, 0);
             /*if ( GetCvar("cola_playersound") == 1)
             {
                 A_PlaySound("ColaVeryMaleAttack", CHAN_VOICE);
             }*/
         }
-		FPAN A 0 {
+		"####" A 0 {
 			A_OverlayOffset(69, -128, 8);
             A_PlaySound("mummy/attack2", CHAN_WEAPON);
         }
     SwordContinue:
-        FPAN A 1;
-		FPAN A 0
+        "####" A 1;
+		"####" A 0
 		{
-            int GMMeleeDamage = ( invoker.GMStrength + invoker.GMSwordAttack );
-            A_LogInt(GMMeleeDamage);
+            int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength + GrandmasterPlayer(invoker.owner).GMSwordAttack );
+            //A_LogInt(GMMeleeDamage);
             if ( invoker.SwordSwing == 10 )
             {
                 invoker.SwordSwing = 0;
@@ -95,10 +120,10 @@ class WWGMWeapon : Weapon replaces Fist
         }
 		Stop;
     SwordPreRecoil:
-        FPAN AAAA 1 A_OverlayOffset(69, random(-2, 0), random(-2, 0), WOF_ADD);
+        "####" AAAA 1 A_OverlayOffset(69, random(-2, 0), random(-2, 0), WOF_ADD);
     SwordRecoil:
-        FPAN A 1 A_OverlayOffset(69, (-12 + random(-2, 2)), (24 + random(-2, 2)), WOF_INTERPOLATE|WOF_ADD);
-        FPAN A 0
+        "####" A 1 A_OverlayOffset(69, (-12 + random(-2, 2)), (24 + random(-2, 2)), WOF_INTERPOLATE|WOF_ADD);
+        "####" A 0
         {
             A_TakeInventory("MeleeHitSomething", 999);
             if ( invoker.SwordSwing > 0 )
@@ -113,8 +138,8 @@ class WWGMWeapon : Weapon replaces Fist
         }
         Stop;
     SwordFinish:
-        FPAN A 5;
-        FPAN A 0 {
+        "####" A 5;
+        "####" A 0 {
             invoker.SwordBusy = 0;
         }
         Stop;
