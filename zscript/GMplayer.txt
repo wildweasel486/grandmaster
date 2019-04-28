@@ -1,15 +1,45 @@
-class GrandmasterPlayer : DoomPlayer
+class GrandmasterPlayer : HereticPlayer
 {
-	default
+    // Player stats
+    private int GMStrength; property GMStrength : GMStrength;
+    private int GMMagic; property GMMagic : GMMagic;
+    private int GMSkill; property GMSkill : GMSkill;
+    private int GMSpeed; property GMSpeed : GMSpeed;
+    private int GMLuck; property GMLuck : GMLuck;
+    private int GMDef; property GMDef : GMDef;
+    private int GMSwordType; property GMSwordType : GMSwordType;
+    private int GMSwordAttack; property GMSwordAttack : GMSwordAttack;
+    private int GMTomeType; property GMTomeType : GMTomeType;
+    private int GMTomeAttack; property GMTomeAttack : GMTomeAttack;
+    
+    default
 	{
 		Player.MaxHealth 100;
 		Player.Viewheight 48;
 		Player.AttackZOffset 14;
-		// Make sure all newly defined weapons that reload are included here so they start with ammo.
 		Player.DisplayName "Tactician";
         Player.StartItem "WWGMWeapon";
-	}
-    
+        GrandmasterPlayer.GMStrength 5;
+        GrandmasterPlayer.GMSwordType 1; // Bronze sword
+        GrandmasterPlayer.GMSwordAttack 5;
+    }
+    /*
+    void init()
+    {
+        // Player stats
+        GMStrength = 5;
+        GMMagic = 5;
+        GMSkill = 5;
+        GMSpeed = 5;
+        GMLuck = 5;
+        GMDef = 5;
+        // Starting equipment
+        GMSwordType = 1;
+        GMSwordAttack = 5;
+        GMTomeType = 1;
+        GMTomeAttack = 5;
+    }
+    */
     /*
     override void Tick()
     {

@@ -13,8 +13,8 @@ class WWGMWeapon : Weapon replaces Fist
         +Weapon.NoAutoFire
     }
     //int buttons;
-    int SwordSwing; // Tracks how far across the screen the pan attack is.
-    int SwordBusy;
+    private int SwordSwing; // Tracks how far across the screen the melee attack is.
+    private int SwordBusy; // Is an attack currently happening?
 	States
 	{
 	Select:
@@ -42,7 +42,7 @@ class WWGMWeapon : Weapon replaces Fist
     Altfire:
         VDCX AAAA 1 A_WeaponOffset(4, -16, WOF_KEEPX|WOF_INTERPOLATE|WOF_ADD);
 		VDCX A 1 A_WeaponOffset(0, 32, WOF_INTERPOLATE);
-		VDCX A 1 A_FireCustomMissile("CrossbowFX2", frandom(-2.0, 2.0), 0, 8, frandom(-2.0, 2.0));
+		VDCX A 1 A_FireProjectile("CrossbowFX2", frandom(-2.0, 2.0), 0, 8, frandom(-2.0, 2.0));
 		VDCX AAAA 1 A_WeaponOffset(-4, 16, WOF_INTERPOLATE|WOF_ADD);
 		TNT1 A 2;
 		Goto Ready;
@@ -68,8 +68,8 @@ class WWGMWeapon : Weapon replaces Fist
         FPAN A 1;
 		FPAN A 0
 		{
-            int runPunch = 50 + ( Vel.XY.Length() * 3); // Adds player's run speed to melee damage. It's fun!
-            //A_LogInt(runpunch);
+            int GMMeleeDamage = ( invoker.GMStrength + invoker.GMSwordAttack );
+            A_LogInt(GMMeleeDamage);
             if ( invoker.SwordSwing == 10 )
             {
                 invoker.SwordSwing = 0;
@@ -84,11 +84,11 @@ class WWGMWeapon : Weapon replaces Fist
             }
 			else if ( CountInv("PowerWeaponLevel2") >= 1 )
 			{
-				A_CustomPunch(runPunch * 3,1,0,"SwordHitPuff", 100);
+				A_CustomPunch(GMMeleeDamage * 3,1,0,"SwordHitPuff", 100);
 			}
 			else
 			{
-				A_CustomPunch(runPunch,1,0,"SwordHitPuff", 100);
+				A_CustomPunch(GMMeleeDamage,1,0,"SwordHitPuff", 100);
 			}
             invoker.SwordSwing++;
             return ResolveState("SwordContinue");
