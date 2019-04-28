@@ -1,16 +1,16 @@
 class GrandmasterPlayer : HereticPlayer
 {
     // Player stats
-    private int GMStrength; property GMStrength : GMStrength;
-    private int GMMagic; property GMMagic : GMMagic;
-    private int GMSkill; property GMSkill : GMSkill;
-    private int GMSpeed; property GMSpeed : GMSpeed;
-    private int GMLuck; property GMLuck : GMLuck;
-    private int GMDef; property GMDef : GMDef;
-    private int GMSwordType; property GMSwordType : GMSwordType;
-    private int GMSwordAttack; property GMSwordAttack : GMSwordAttack;
-    private int GMTomeType; property GMTomeType : GMTomeType;
-    private int GMTomeAttack; property GMTomeAttack : GMTomeAttack;
+    int GMStrength; property GMStrength : GMStrength;
+    int GMMagic; property GMMagic : GMMagic;
+    int GMSkill; property GMSkill : GMSkill;
+    int GMSpeed; property GMSpeed : GMSpeed;
+    int GMLuck; property GMLuck : GMLuck;
+    int GMDef; property GMDef : GMDef;
+    int GMSwordType; property GMSwordType : GMSwordType;
+    int GMSwordAttack; property GMSwordAttack : GMSwordAttack;
+    int GMTomeType; property GMTomeType : GMTomeType;
+    int GMTomeAttack; property GMTomeAttack : GMTomeAttack;
     
     default
 	{
