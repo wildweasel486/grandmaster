@@ -7,10 +7,17 @@ class GrandmasterPlayer : HereticPlayer
     int GMSpeed; property GMSpeed : GMSpeed;
     int GMLuck; property GMLuck : GMLuck;
     int GMDef; property GMDef : GMDef;
+    int GMStartingSword; property GMStartingSword : GMStartingSword;
     int GMSwordType; property GMSwordType : GMSwordType;
     int GMSwordAttack; property GMSwordAttack : GMSwordAttack;
+    int GMSwordSpeed; property GMSwordSpeed : GMSwordSpeed;
+    int GMSwordCrit; property GMSwordCrit : GMSwordCrit;
+    int GMSwordSkill; property GMSwordSkill : GMSwordSkill;
+    int GMSwordExp; property GMSwordExp : GMSwordExp;
     int GMTomeType; property GMTomeType : GMTomeType;
     int GMTomeAttack; property GMTomeAttack : GMTomeAttack;
+    int GMTomeSkill; property GMTomeSkill : GMTomeSkill;
+    int GMTomeExp; property GMTomeExp : GMTomeExp;
     
     default
 	{
@@ -19,27 +26,20 @@ class GrandmasterPlayer : HereticPlayer
 		Player.AttackZOffset 14;
 		Player.DisplayName "Tactician";
         Player.StartItem "WWGMWeapon";
+        Player.StartItem "WWGMSwordUses", 50;
+        Player.StartItem "WWGMTomeUses", 50;
         GrandmasterPlayer.GMStrength 5;
-        GrandmasterPlayer.GMSwordType 1; // Bronze sword
-        GrandmasterPlayer.GMSwordAttack 5;
+        GrandmasterPlayer.GMMagic 5;
+        GrandmasterPlayer.GMSkill 5;
+        GrandmasterPlayer.GMSpeed 5;
+        GrandmasterPlayer.GMLuck 5;
+        GrandmasterPlayer.GMDef 5;
+        GrandmasterPlayer.GMSwordType 4;
+        //GrandmasterPlayer.GMSwordAttack GMSwordData.damage[2];
+        //GMSwordSpeed = GMSwordData.speed[sword];
+        //GMSwordCrit = GMSwordData.crit[sword];
     }
-    /*
-    void init()
-    {
-        // Player stats
-        GMStrength = 5;
-        GMMagic = 5;
-        GMSkill = 5;
-        GMSpeed = 5;
-        GMLuck = 5;
-        GMDef = 5;
-        // Starting equipment
-        GMSwordType = 1;
-        GMSwordAttack = 5;
-        GMTomeType = 1;
-        GMTomeAttack = 5;
-    }
-    */
+    
     /*
     override void Tick()
     {
