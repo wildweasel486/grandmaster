@@ -23,25 +23,216 @@ class GMSwordBronze : CustomInventory // replaces GoldWandAmmo
     }
 }
 
-class GMPowerRing : CustomInventory replaces GoldWandAmmo // increases Strength
+class GMStatItemDropper : RandomSpawner replaces GoldWandAmmo
 {
     default
     {
-        Inventory.Icon "UNKNA0";
+        DropItem "GMEnergyDrop";
+        DropItem "GMSecretBook";
+        DropItem "GMSpiritDust";
+        DropItem "GMSpeedwing";
+        DropItem "GMGoddessIcon";
+        DropItem "GMDracoshield";
+        DropItem "GMSeraphRobe";
+        DropItem "GMArmsScroll";
+    }
+}
+
+class GMEnergyDrop : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "EDRPP0";
         Inventory.Amount 1;
         Inventory.MaxAmount 5;
-        Inventory.PickupMessage "$GM_POWERRING";
+        Inventory.PickupMessage "$GM_STRENGTHUPITEM";
+        Tag "$GM_STRENGTHUPITEM";
         +Inventory.Invbar
     }
     states
     {
     Spawn:
-        UNKN A -1;
+        EDRP P -1;
         Stop;
     Use:
         TNT1 A 0 {
             A_Log("Strength increased.");
             GrandmasterPlayer(invoker.owner).GMStrength = (GrandmasterPlayer(invoker.owner).GMStrength + 1);
+        }
+        Stop;
+    }
+}
+
+class GMSecretBook : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "SCRBP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_SKILLUPITEM";
+        Tag "$GM_SKILLUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        SCRB P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Skill increased.");
+            GrandmasterPlayer(invoker.owner).GMSkill = (GrandmasterPlayer(invoker.owner).GMSkill + 1);
+        }
+        Stop;
+    }
+}
+
+class GMSpiritDust : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "SDSTP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_MAGICUPITEM";
+        Tag "$GM_MAGICUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        SDST P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Magic increased.");
+            GrandmasterPlayer(invoker.owner).GMMagic = (GrandmasterPlayer(invoker.owner).GMMagic + 1);
+        }
+        Stop;
+    }
+}
+
+class GMSpeedwing : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "SPDWP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_SPEEDUPITEM";
+        Tag "$GM_SPEEDUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        SPDW P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Speed increased.");
+            GrandmasterPlayer(invoker.owner).GMSpeed = (GrandmasterPlayer(invoker.owner).GMSpeed + 1);
+        }
+        Stop;
+    }
+}
+
+class GMGoddessIcon : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "GDSIP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_LUCKUPITEM";
+        Tag "$GM_LUCKUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        GDSI P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Luck increased.");
+            GrandmasterPlayer(invoker.owner).GMLuck = (GrandmasterPlayer(invoker.owner).GMLuck + 1);
+        }
+        Stop;
+    }
+}
+
+class GMDracoshield : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "DRCSP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_DEFUPITEM";
+        Tag "$GM_DEFUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        DRCS P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Defense increased.");
+            GrandmasterPlayer(invoker.owner).GMDef = (GrandmasterPlayer(invoker.owner).GMDef + 1);
+        }
+        Stop;
+    }
+}
+
+class GMSeraphRobe : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "SRPHP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_HPUPITEM";
+        Tag "$GM_HPUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        SRPH P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Max HP increased (eventually! -ww).");
+            // GrandmasterPlayer(invoker.owner).GMStrength = (GrandmasterPlayer(invoker.owner).GMStrength + 1);
+        }
+        Stop;
+    }
+}
+
+class GMArmsScroll : CustomInventory
+{
+    default
+    {
+        Inventory.Icon "SKLSP0";
+        Inventory.Amount 1;
+        Inventory.MaxAmount 5;
+        Inventory.PickupMessage "$GM_ARMSUPITEM";
+        Tag "$GM_ARMSUPITEM";
+        +Inventory.Invbar
+    }
+    states
+    {
+    Spawn:
+        EDRP P -1;
+        Stop;
+    Use:
+        TNT1 A 0 {
+            A_Log("Sword skill increased.");
+            //GrandmasterPlayer(invoker.owner).GMSwordSkill = (GrandmasterPlayer(invoker.owner).GMSwordSkill + 1);
         }
         Stop;
     }

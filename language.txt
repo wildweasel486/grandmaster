@@ -1,6 +1,28 @@
 [default en]
 
-GM_SWORD0 = "Bare Hands";
-GM_SWORD1 = "Bronze Sword";
+GM_STRENGTHUPITEM = "Energy Drop";
+GM_SKILLUPITEM = "Secret Book";
+GM_MAGICUPITEM = "Spirit Dust";
+GM_SPEEDUPITEM = "Speedwing";
+GM_LUCKUPITEM = "Goddess Icon";
+GM_DEFUPITEM = "Dracoshield";
+GM_HPUPITEM = "Seraph Robe";
+GM_ARMSUPITEM = "Arms Scroll";
 
-GM_POWERRING = "Power Ring";
+SWORD_BRCH = "Tree Branch";
+SWORD_GLAS = "Glass Sword";
+SWORD_SWD1 = "Bronze Sword";
+SWORD_RPER = "Rapier";
+SWORD_SWD2 = "Iron Sword";
+SWORD_WYRM = "Wyrmslayer";
+SWORD_KEDG = "Killing Edge";
+SWORD_LEVN = "Levin Sword";
+SWORD_SWD3 = "Steel Sword";
+SWORD_GRPR = "Great Rapier";
+SWORD_SWD4 = "Silver Sword";
+SWORD_BRVE = "Brave Sword";
+SWORD_MEIS = "Meisterschwert";
+SWORD_FALC = "Exalted Falchion";
+SWORD_MERC = "Mercurius";
+SWORD_MYST = "Mystletainn";
+SWORD_TYRF = "Tyrfing";
