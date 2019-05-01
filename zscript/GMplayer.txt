@@ -26,18 +26,16 @@ class GrandmasterPlayer : HereticPlayer
 		Player.AttackZOffset 14;
 		Player.DisplayName "Tactician";
         Player.StartItem "WWGMWeapon";
-        Player.StartItem "WWGMSwordUses", 50;
-        Player.StartItem "WWGMTomeUses", 50;
+        Player.StartItem "GMSwordBronze";
+        //Player.StartItem "WWGMSwordUses", 50;
+        //Player.StartItem "WWGMTomeUses", 50;
         GrandmasterPlayer.GMStrength 5;
         GrandmasterPlayer.GMMagic 5;
         GrandmasterPlayer.GMSkill 5;
         GrandmasterPlayer.GMSpeed 5;
         GrandmasterPlayer.GMLuck 5;
         GrandmasterPlayer.GMDef 5;
-        GrandmasterPlayer.GMSwordType 4;
-        //GrandmasterPlayer.GMSwordAttack GMSwordData.damage[2];
-        //GMSwordSpeed = GMSwordData.speed[sword];
-        //GMSwordCrit = GMSwordData.crit[sword];
+        //GrandmasterPlayer.GMSwordType 4;
     }
     
     /*

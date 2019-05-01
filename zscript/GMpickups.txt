@@ -18,8 +18,11 @@ class GMSwordBronze : CustomInventory // replaces GoldWandAmmo
             A_Log("Sword type is now Bronze.");
             GrandmasterPlayer(invoker.owner).GMSwordType = 1;
             GrandmasterPlayer(invoker.owner).GMSwordAttack = 5;
+            GrandmasterPlayer(invoker.owner).GMSwordSpeed = 5;
+            GrandmasterPlayer(invoker.owner).GMSwordCrit = 5;
+            A_GiveInventory("WWGMSwordUses", 50);
         }
-        Fail;
+        Stop;
     }
 }
 

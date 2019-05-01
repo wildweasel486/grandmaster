@@ -163,6 +163,19 @@ class WWGMWeapon : Weapon replaces Fist
          GMSwordData.speed[sword],
          GMSwordData.crit[sword] ) );
    }*/
+   
+    /*
+    action void GM_SetSwordType (int sword)
+    {
+        A_Log( String.format(Stringtable.Localize(GMSwordData.name[sword]) ),
+        A_Log( String.format("%s: %d damage, %d speed, %d crit",
+        GMSwordData.sprite[sword],
+        GMSwordData.damage[sword],
+        GMSwordData.speed[sword],
+        GMSwordData.crit[sword] ) );
+        //GrandmasterPlayer.GMSwordType = sword;
+    }
+    */
     
     default
     {
@@ -210,13 +223,28 @@ class WWGMWeapon : Weapon replaces Fist
 		TNT1 A 2;
 		Goto Ready;
 	Fire:
-        TNT1 A 1 {
+        TNT1 A 1 Offset(-160, 8) {
             if ( invoker.SwordBusy != 1 ) { 
-                A_Overlay(69, "SwordSwing");
-                X_SetOverlaySprite(69, "FPAN", 0);
+                A_Overlay(70, "SwordSwing");
+                A_Overlay(69, "SwordSprite");
             }
         }
         Goto Ready;
+    SwordSprite:
+        TNT1 A 0 {
+            switch( GrandmasterPlayer(invoker.owner).GMSwordType )
+            {
+                case 0:
+                X_SetOverlaySprite(69, "PNCH");
+                break;
+                
+                case 1:
+                X_SetOverlaySprite(69, "FPAN");
+                break;
+            }
+        }
+        "####" A 15;
+        Stop;
     SwordSwing:
 		"----" A 0 {
             invoker.SwordBusy = 1;
@@ -227,7 +255,7 @@ class WWGMWeapon : Weapon replaces Fist
             }*/
         }
 		"----" A 0 {
-			A_OverlayOffset(69, -128, 8);
+			A_OverlayOffset(69, -160, 8, WOF_INTERPOLATE);
             A_PlaySound("mummy/attack2", CHAN_WEAPON);
         }
     SwordContinue:
@@ -305,7 +333,6 @@ class WWGMWeapon : Weapon replaces Fist
         "----" A 5;
         "----" A 0 {
             invoker.SwordBusy = 0;
-            
         }
         Stop;
 	}
