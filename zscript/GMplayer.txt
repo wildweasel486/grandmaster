@@ -7,17 +7,10 @@ class GrandmasterPlayer : HereticPlayer
     int GMSpeed; property GMSpeed : GMSpeed;
     int GMLuck; property GMLuck : GMLuck;
     int GMDef; property GMDef : GMDef;
-    int GMStartingSword; property GMStartingSword : GMStartingSword;
-    int GMSwordType; property GMSwordType : GMSwordType;
-    int GMSwordAttack; property GMSwordAttack : GMSwordAttack;
-    int GMSwordSpeed; property GMSwordSpeed : GMSwordSpeed;
-    int GMSwordCrit; property GMSwordCrit : GMSwordCrit;
     int GMSwordSkill; property GMSwordSkill : GMSwordSkill;
-    int GMSwordExp; property GMSwordExp : GMSwordExp;
-    int GMTomeType; property GMTomeType : GMTomeType;
-    int GMTomeAttack; property GMTomeAttack : GMTomeAttack;
     int GMTomeSkill; property GMTomeSkill : GMTomeSkill;
     int GMTomeExp; property GMTomeExp : GMTomeExp;
+    int GMSwordExp; property GMSwordExp : GMSwordExp;
     
     default
 	{
@@ -25,9 +18,9 @@ class GrandmasterPlayer : HereticPlayer
 		Player.Viewheight 48;
 		Player.AttackZOffset 14;
 		Player.DisplayName "Tactician";
-        Player.StartItem "WWGMWeapon";
         Player.StartItem "GMSwordBronze";
-        //Player.StartItem "WWGMSwordUses", 50;
+        Player.StartItem "WWGMSwordUses", 50;
+		Player.StartItem "GMNoSword";
         //Player.StartItem "WWGMTomeUses", 50;
         GrandmasterPlayer.GMStrength 5;
         GrandmasterPlayer.GMMagic 5;

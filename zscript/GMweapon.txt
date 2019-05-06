@@ -1,15 +1,3 @@
-/* // Get assistance with this later.
-SpriteID GetSwordSprite(int type)
-    {
-        switch (type)
-        {
-        default:
-        case SWORD_None:   return GetSpriteIndex("PUNGA");
-        case SWORD_Bronze: return GetSpriteIndex("FPANA");
-        // ...
-        }
-    }
-*/
 class WWGMSwordUses : Ammo
 {
     default
@@ -26,157 +14,8 @@ class WWGMTomeUses : Ammo
     }
 }
 
-struct GMSwordData // Sword Database
+class GMBaseWeapon : Weapon replaces Fist
 {
-    const SWORD_TYPES = 18;
-    static const int damage[] = {
-        0,
-        1,
-        6,
-        3,
-        7,
-        5,
-        9,
-        10,
-        11,
-        12,
-        14,
-        15,
-        10,
-        12,
-        30,
-        21,
-        18,
-        17
-    };
-    static const int speed[] = {
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-    };
-    static const int crit[] = {
-        0,
-        10,
-        8,
-        4,
-        10,
-        5,
-        6,
-        40,
-        0,
-        6,
-        10,
-        7,
-        8,
-        15,
-        15,
-        10,
-        10,
-        20
-    };
-    static const String name [] = {
-        "$SWORD_FIST",
-        "$SWORD_BRCH",
-        "$SWORD_GLAS",
-        "$SWORD_SWD1",
-        "$SWORD_RPER",
-        "$SWORD_SWD2",
-        "$SWORD_WYRM",
-        "$SWORD_KEDG",
-        "$SWORD_LEVN",
-        "$SWORD_SWD3",
-        "$SWORD_GRPR",
-        "$SWORD_SWD4",
-        "$SWORD_BRVE",
-        "$SWORD_MEIS",
-        "$SWORD_FALC",
-        "$SWORD_MERC",
-        "$SWORD_MYST",
-        "$SWORD_TYRF"
-    };
-    static const String sprite [] = {
-        "FIST",
-        "BRCH",
-        "GLAS",
-        "SWD1",
-        "RPER",
-        "SWD2",
-        "WYRM",
-        "KEDG",
-        "LEVN",
-        "SWD3",
-        "GRPR",
-        "SWD4",
-        "BRVE",
-        "MEIS",
-        "FALC",
-        "MERC",
-        "MYST",
-        "TYRF"
-    };
-}
-
-
-class WWGMWeapon : Weapon replaces Fist
-{
-    // sets sprite/frame of the specified overlay PSprite.
-    // Thanks, Xaser! Used under MIT license from
-    // https://github.com/XaserAcheron/eriguns/blob/master/eriguns2/zscript/eriguns2/weapons/base.txt#L65
-	action void X_SetOverlaySprite(int layer, string spriteName = "----", int frame = -1)
-	{
-		if(self.player) {
-			PSprite psp = self.player.GetPSprite(layer);
-			if(psp && psp.CurState != null) {
-				int sprite = GetSpriteIndex(spriteName);
-				if(sprite > -1 && spriteName != "----") {
-					psp.sprite = sprite;
-				}
-				if(frame > -1) {
-					psp.frame = frame;
-				}
-			}
-		}
-	}
-    
-    /*override void PostBeginPlay() {
-      int sword = Random( 0, GMSwordData.SWORD_TYPES - 1 );
-      
-      A_Log( String.format(Stringtable.Localize(GMSwordData.name[sword]) ),
-      A_Log( String.format("%s: %d damage, %d speed, %d crit",
-         GMSwordData.sprite[sword],
-         GMSwordData.damage[sword],
-         GMSwordData.speed[sword],
-         GMSwordData.crit[sword] ) );
-   }*/
-   
-    /*
-    action void GM_SetSwordType (int sword)
-    {
-        A_Log( String.format(Stringtable.Localize(GMSwordData.name[sword]) ),
-        A_Log( String.format("%s: %d damage, %d speed, %d crit",
-        GMSwordData.sprite[sword],
-        GMSwordData.damage[sword],
-        GMSwordData.speed[sword],
-        GMSwordData.crit[sword] ) );
-        //GrandmasterPlayer.GMSwordType = sword;
-    }
-    */
-    
     default
     {
         Weapon.BobStyle "Alpha";
@@ -194,10 +33,7 @@ class WWGMWeapon : Weapon replaces Fist
         Weapon.AmmoType2 "WWGMTomeUses";
         Weapon.AmmoUse2 0;
     }
-    //int buttons;
-    private int SwordSwing; // Tracks how far across the screen the melee attack is.
-    private int SwordBusy; // Is an attack currently happening?
-	States
+	states
 	{
 	Select:
 		TNT1 A 1 A_Raise;
@@ -208,11 +44,21 @@ class WWGMWeapon : Weapon replaces Fist
 	Ready:
 		TNT1 A 1 A_WeaponReady;
 		Loop;
-	Flash:
-		TNT1 A 1 A_Light2;
-		TNT1 A 1 A_Light1;
-		Goto LightDone;
-    Altfire:
+	Fire:
+		TNT1 A 1;
+		Goto Ready;
+	}
+}
+
+class GMBaseTome : GMBaseWeapon
+{
+    int GMTomeMight; property GMTomeMight : GMTomeMight;
+	int GMTomeSpeed; property GMTomeSpeed : GMTomeSpeed;
+    int GMTomeCrit; property GMTomeCrit : GMTomeCrit;
+	
+	States
+	{
+	Fire:
         VDCX AAAA 1 A_WeaponOffset(4, -16, WOF_KEEPX|WOF_INTERPOLATE|WOF_ADD);
 		VDCX A 1 {
             A_WeaponOffset(0, 32, WOF_INTERPOLATE);
@@ -222,148 +68,5 @@ class WWGMWeapon : Weapon replaces Fist
 		VDCX AAAA 1 A_WeaponOffset(-4, 16, WOF_INTERPOLATE|WOF_ADD);
 		TNT1 A 2;
 		Goto Ready;
-	Fire:
-        TNT1 A 1 Offset(-160, 8) {
-            if ( invoker.SwordBusy != 1 ) { 
-                A_Overlay(70, "SwordSwing");
-                A_Overlay(69, "SwordSprite");
-            }
-        }
-        Goto Ready;
-    SwordSprite:
-        TNT1 A 0 {
-            switch( GrandmasterPlayer(invoker.owner).GMSwordType )
-            {
-                case 0:
-                X_SetOverlaySprite(69, "PNCH");
-                break;
-                
-                case 1:
-                X_SetOverlaySprite(69, "FPAN");
-                break;
-            }
-        }
-        "####" A 15;
-        Stop;
-    SwordSwing:
-		"----" A 0 {
-            invoker.SwordBusy = 1;
-            A_OverlayFlags(69, PSPF_ADDWEAPON, 0);
-            /*if ( GetCvar("cola_playersound") == 1)
-            {
-                A_PlaySound("ColaVeryMaleAttack", CHAN_VOICE);
-            }*/
-        }
-		"----" A 0 {
-			A_OverlayOffset(69, -160, 8, WOF_INTERPOLATE);
-            A_PlaySound("mummy/attack2", CHAN_WEAPON);
-        }
-    SwordContinue:
-        "----" A 1;
-		"----" A 0
-		{
-            int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength + GrandmasterPlayer(invoker.owner).GMSwordAttack );
-            //A_LogInt(GMMeleeDamage);
-            if ( invoker.SwordSwing == 10 )
-            {
-                invoker.SwordSwing = 0;
-                A_TakeInventory("MeleeHitSomething", 999); // For safety
-                return ResolveState("SwordFinish"); // Pan's made it across the screen, erase it.
-            }
-            A_OverlayOffset(69, 80, 12, WOF_INTERPOLATE|WOF_ADD);
-            if ( CountInv("MeleeHitSomething") == 1 )
-            {
-                invoker.SwordSwing = 10;
-                A_TakeInventory("WWGMSwordUses", 1, TIF_NOTAKEINFINITE);
-                if (    GrandmasterPlayer(invoker.owner).GMSwordExp < 100 &&
-                        GrandmasterPlayer(invoker.owner).GMSwordSkill != 6 &&
-                        CountInv("MeleeHitEnemy") != 0 &&
-                        GrandmasterPlayer(invoker.owner).GMSwordType != 0 )
-                        {
-                            GrandmasterPlayer(invoker.owner).GMSwordExp++;
-                            if ( GrandmasterPlayer(invoker.owner).GMSwordExp == 100 )
-                            {
-                                GrandmasterPlayer(invoker.owner).GMSwordSkill++;
-                                GrandmasterPlayer(invoker.owner).GMSwordExp = 0;
-                                A_Log("Sword skill has increased!");
-                            }
-                            A_TakeInventory("MeleeHitEnemy", 999);
-                        }
-                if ( CountInv("WWGMSwordUses") <= 0 && GrandmasterPlayer(invoker.owner).GMSwordType != 0 )
-                {
-                    GrandmasterPlayer(invoker.owner).GMSwordType = 0;
-                    GrandmasterPlayer(invoker.owner).GMSwordAttack = 0;
-                    GrandmasterPlayer(invoker.owner).GMSwordSpeed = 0;
-                    GrandmasterPlayer(invoker.owner).GMSwordCrit = 0;
-                    A_Log("Your sword has broken!");
-                }
-                return ResolveState("SwordPreRecoil");
-            }
-			else if ( CountInv("PowerWeaponLevel2") >= 1 )
-			{
-				A_CustomPunch(GMMeleeDamage * 3,1,0,"SwordHitPuff", 100);
-			}
-			else
-			{
-				A_CustomPunch(GMMeleeDamage,1,0,"SwordHitPuff", 100);
-			}
-            invoker.SwordSwing++;
-            return ResolveState("SwordContinue");
-        }
-		Stop;
-    SwordPreRecoil:
-        "----" AAAA 1 A_OverlayOffset(69, random(-2, 0), random(-2, 0), WOF_ADD);
-    SwordRecoil:
-        "----" A 1 A_OverlayOffset(69, (-12 + random(-2, 2)), (24 + random(-2, 2)), WOF_INTERPOLATE|WOF_ADD);
-        "----" A 0
-        {
-            A_TakeInventory("MeleeHitSomething", 999);
-            if ( invoker.SwordSwing > 0 )
-            {
-                invoker.SwordSwing--;
-                return ResolveState("SwordRecoil");
-            }
-            else
-            {
-                return ResolveState("SwordFinish");
-            }
-        }
-        Stop;
-    SwordFinish:
-        "----" A 5;
-        "----" A 0 {
-            invoker.SwordBusy = 0;
-        }
-        Stop;
-	}
-}
-
-class MeleeHitSomething : Inventory {}
-class MeleeHitEnemy : Inventory {}
-
-class SwordHitPuff : Actor
-{
-    default
-    {
-        +NOBLOCKMAP
-        +NOGRAVITY
-        +PUFFONACTORS
-        +PUFFGETSOWNER
-        +THRUGHOST
-        +NOEXTREMEDEATH
-        activesound "";
-        attacksound "weapons/staffhit";
-        seesound "weapons/staffhit";
-    }
-	states
-	{
-	Spawn:
-	Melee:
-        TNT1 A 0 A_GiveToTarget("MeleeHitEnemy", 1);
-    Crash:
-		// TNT1 AAAAA 0 NoDelay A_SpawnItemEx("GunSmoke", 0,0,0, random(-1,1),random(-1,1),random(-1,1), 0, SXF_NOCHECKPOSITION)
-        TNT1 A 0 A_GiveToTarget("MeleeHitSomething", 1);
-		TNT1 A 5 A_Quake(3,10,0,100,"");
-		stop;
 	}
 }

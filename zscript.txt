@@ -1,6 +1,7 @@
 version "4.0"
 #include "zscript/GMplayer.txt"
 #include "zscript/GMweapon.txt"
+#include "zscript/GMswords.txt"
 #include "zscript/GMpickups.txt"
 #include "zscript/GMhud.txt"
 
