@@ -24,11 +24,15 @@ class swordtype
 class GMBaseSword : GMBaseWeapon
 {
 	swordtype SwordTypes[2];
-	override void Init()
+	override void BeginPlay()
 	{
-		super.Init();
+		super.BeginPlay();
+		// The sword database. There'll eventually be one for tomes.
 		SwordTypes[0] = swordtype.make("SWORD_SWD1", 1, 0.95, 0.03, 50, "PNCH");
 		SwordTypes[1] = swordtype.make("SWORD_SWD2", 1, 0.95, 0.03, 50, "FPAN");
+		
+		// Give the player the initial stats I guess...
+		
 	}
 	
 	int SwordSwing; // Tracks how far across the screen the melee attack is.
@@ -75,7 +79,7 @@ class GMBaseSword : GMBaseWeapon
         "----" A 1;
 		"----" A 0
 		{
-            int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength + invoker.GMSwordMight );
+            int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength /* + invoker.GMSwordMight */  );
             //A_LogInt(GMMeleeDamage);
             if ( invoker.SwordSwing == 10 )
             {

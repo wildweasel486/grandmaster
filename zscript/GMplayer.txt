@@ -11,6 +11,8 @@ class GrandmasterPlayer : HereticPlayer
     int GMTomeSkill; property GMTomeSkill : GMTomeSkill;
     int GMTomeExp; property GMTomeExp : GMTomeExp;
     int GMSwordExp; property GMSwordExp : GMSwordExp;
+    int GMSwordType; property GMSwordType : GMSwordType;
+    int GMTomeType; property GMTomeType : GMTomeType;
     
     default
 	{
@@ -18,28 +20,28 @@ class GrandmasterPlayer : HereticPlayer
 		Player.Viewheight 48;
 		Player.AttackZOffset 14;
 		Player.DisplayName "Tactician";
-        Player.StartItem "GMSwordBronze";
-        Player.StartItem "WWGMSwordUses", 50;
-		Player.StartItem "GMNoSword";
+		//Player.StartItem "GMNoSword";
         //Player.StartItem "WWGMTomeUses", 50;
+        Player.StartItem "GMBaseSword";
         GrandmasterPlayer.GMStrength 5;
         GrandmasterPlayer.GMMagic 5;
         GrandmasterPlayer.GMSkill 5;
         GrandmasterPlayer.GMSpeed 5;
         GrandmasterPlayer.GMLuck 5;
         GrandmasterPlayer.GMDef 5;
-        //GrandmasterPlayer.GMSwordType 4;
+        GrandmasterPlayer.GMSwordType 0;
+        GrandmasterPlayer.GMTomeType 0;
     }
     
     /*
     override void Tick()
     {
-        if     (GetCvar("wwgm_playersound") == 0) { SoundClass = "RobinM1"; }     //"Male";
-        else if(GetCvar("wwgm_playersound") == 1) { SoundClass = "RobinM2"; } //"VERY Male";
-        else if(GetCvar("wwgm_playersound") == 2) { SoundClass = "RobinM3"; }   //"Female";
-        else if(GetCvar("wwgm_playersound") == 3) { SoundClass = "RobinF1"; } //"Pepsimaaaan!";
-        else if(GetCvar("wwgm_playersound") == 4) { SoundClass = "RobinF2"; }  //"Gender-neutral";
-        else if(GetCvar("wwgm_playersound") == 5) { SoundClass = "RobinF3"; }     //"WTF?";
+        if     (GetCvar("wwgm_playersound") == 0) { SoundClass = "RobinM1"; }
+        else if(GetCvar("wwgm_playersound") == 1) { SoundClass = "RobinM2"; }
+        else if(GetCvar("wwgm_playersound") == 2) { SoundClass = "RobinM3"; }
+        else if(GetCvar("wwgm_playersound") == 3) { SoundClass = "RobinF1"; }
+        else if(GetCvar("wwgm_playersound") == 4) { SoundClass = "RobinF2"; }
+        else if(GetCvar("wwgm_playersound") == 5) { SoundClass = "RobinF3"; }
     return Super.Tick();
     }
     */
