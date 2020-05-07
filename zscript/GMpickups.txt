@@ -229,7 +229,7 @@ class GMArmsScroll : CustomInventory
     states
     {
     Spawn:
-        EDRP P -1;
+        SKLS P -1;
         Stop;
     Use:
         TNT1 A 0 {
