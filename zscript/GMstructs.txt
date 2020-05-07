@@ -1,0 +1,15 @@
+struct swordtype
+{
+	string Name;
+	int Might;
+	float Speed;
+	float Critical;
+	int Durability;
+	string Picture;
+};
+
+swordtype SwordTypes[2] =
+{
+	{ "SWORD_SWD1", 1, 0.96, 0.03, 50, "PNCH" },
+	{ "SWORD_SWD2", 3, 0.85, 0.05, 40, "FPAN" },
+};
