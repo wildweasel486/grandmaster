@@ -1,5 +1,4 @@
 version "4.0"
-// #include "zscript/GMstructs.txt"
 #include "zscript/GMplayer.txt"
 #include "zscript/GMweapon.txt"
 #include "zscript/GMswords.txt"
