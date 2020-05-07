@@ -1,4 +1,4 @@
-struct swordtype
+class swordtype
 {
 	string Name;
 	int Might;
@@ -6,16 +6,31 @@ struct swordtype
 	float Critical;
 	int Durability;
 	string Picture;
-};
+	
+	static swordtype make(string Name, int Might, float Speed, float Critical, int Durability, string Picture)
+	{
+		swordtype s;
+		s.Name = Name;
+		s.Might = Might;
+		s.Speed = Speed;
+		s.Critical = Critical;
+		s.Durability = Durability;
+		s.Picture = Picture;
+		
+		return s;
+	}
+}
 
 class GMBaseSword : GMBaseWeapon
 {
-	static const swordtype SwordTypes[] =
+	swordtype SwordTypes[2];
+	override void Init()
 	{
-		{ "SWORD_SWD1", 1, 0.96, 0.03, 50, "PNCH" },
-		{ "SWORD_SWD2", 3, 0.85, 0.05, 40, "FPAN" },
-	};
-
+		super.Init();
+		SwordTypes[0] = swordtype.make("SWORD_SWD1", 1, 0.95, 0.03, 50, "PNCH");
+		SwordTypes[1] = swordtype.make("SWORD_SWD2", 1, 0.95, 0.03, 50, "FPAN");
+	}
+	
 	int SwordSwing; // Tracks how far across the screen the melee attack is.
 	int SwordBusy; // Is an attack currently happening?
 	
@@ -49,15 +64,8 @@ class GMBaseSword : GMBaseWeapon
 	SwordSwing:
 		"----" A 0 {
 			invoker.SwordBusy = 1;
-			switch swordtype.Picture
-			{
-			case 1:
-				PNCH A 0
-				break;
-			case 2:
-				FPAN A 0
-				break;
-			}
+			// The switch that was here was trash. Let's try something else here instead
+			
 		}
 		"----" A 0 {
 			A_WeaponOffset(-160, 8);
