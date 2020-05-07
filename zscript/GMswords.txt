@@ -1,4 +1,4 @@
-class swordtype
+struct swordtype
 {
 	string Name;
 	int Might;
@@ -7,17 +7,14 @@ class swordtype
 	int Durability;
 	string Picture;
 	
-	static swordtype make(string Name, int Might, float Speed, float Critical, int Durability, string Picture)
+	void make(string Name, int Might, float Speed, float Critical, int Durability, string Picture)
 	{
-		swordtype s;
-		s.Name = Name;
-		s.Might = Might;
-		s.Speed = Speed;
-		s.Critical = Critical;
-		s.Durability = Durability;
-		s.Picture = Picture;
-		
-		return s;
+		self.Name = Name;
+		self.Might = Might;
+		self.Speed = Speed;
+		self.Critical = Critical;
+		self.Durability = Durability;
+		self.Picture = Picture;
 	}
 }
 
@@ -28,11 +25,10 @@ class GMBaseSword : GMBaseWeapon
 	{
 		super.BeginPlay();
 		// The sword database. There'll eventually be one for tomes.
-		SwordTypes[0] = swordtype.make("SWORD_SWD1", 1, 0.95, 0.03, 50, "PNCH");
-		SwordTypes[1] = swordtype.make("SWORD_SWD2", 1, 0.95, 0.03, 50, "FPAN");
+		SwordTypes[0].make("SWORD_SWD1", 1, 0.95, 0.03, 50, "PNCH");
+		SwordTypes[1].make("SWORD_SWD2", 1, 0.95, 0.03, 50, "FPAN");
 		
 		// Give the player the initial stats I guess...
-		
 	}
 	
 	int SwordSwing; // Tracks how far across the screen the melee attack is.
@@ -69,7 +65,6 @@ class GMBaseSword : GMBaseWeapon
 		"----" A 0 {
 			invoker.SwordBusy = 1;
 			// The switch that was here was trash. Let's try something else here instead
-			
 		}
 		"----" A 0 {
 			A_WeaponOffset(-160, 8);
@@ -79,7 +74,7 @@ class GMBaseSword : GMBaseWeapon
         "----" A 1;
 		"----" A 0
 		{
-            int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength /* + invoker.GMSwordMight */  );
+            int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength /* + SwordTypes[GrandmasterPlayer.GMSwordType].Might */ );
             //A_LogInt(GMMeleeDamage);
             if ( invoker.SwordSwing == 10 )
             {
