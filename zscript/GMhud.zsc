@@ -14,7 +14,7 @@ class GrandmasterStatusBar : HereticStatusBar
         Super.Draw (state, TicFrac);
         
         gmDrawStats(0, -72);
-        //gmDrawWeapInfo(0, -72);
+        gmDrawWeapInfo(0, -72);
     }
     
     void gmDrawStats(int x, int y)
@@ -26,14 +26,14 @@ class GrandmasterStatusBar : HereticStatusBar
         DrawString(wwFont, String.Format("Luck: %d", GrandmasterPlayer(CPlayer.mo).GMLuck), (x + 4, y + 32), DI_TEXT_ALIGN_LEFT | DI_SCREEN_LEFT_BOTTOM, Font.CR_UNTRANSLATED);
         DrawString(wwFont, String.Format("Def: %d", GrandmasterPlayer(CPlayer.mo).GMDef), (x + 4, y + 40), DI_TEXT_ALIGN_LEFT | DI_SCREEN_LEFT_BOTTOM, Font.CR_UNTRANSLATED);
     }
-    /*
+    
     void gmDrawWeapInfo(int x, int y)
     {
-        DrawString(wwFont, String.Format("Mt: %d", GrandmasterPlayer.(CPlayer.mo).GMSwordMight), (x - 4, y), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
-        DrawString(wwFont, String.Format("Spd: %d", GrandmasterPlayer(CPlayer.mo).GMSwordSpeed), (x - 4, y + 8), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
-        DrawString(wwFont, String.Format("Crt: %d", GrandmasterPlayer(CPlayer.mo).GMSwordCrit), (x - 4, y + 16), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+        DrawString(wwFont, String.Format("Mt: %d", GrandmasterPlayer(CPlayer.mo).GMSwordType.swordtype.Might), (x - 4, y), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+        //DrawString(wwFont, String.Format("Spd: %d", CPlayer.ReadyWeapon.SwordTypes[GrandmasterPlayer(CPlayer.mo.owner).GMSwordType].Speed), (x - 4, y + 8), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+        //DrawString(wwFont, String.Format("Crt: %d", CPlayer.ReadyWeapon.SwordTypes[GrandmasterPlayer(CPlayer.mo.owner).GMSwordType].Critical), (x - 4, y + 16), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
         DrawString(wwFont, String.Format("Sxp: %d", GrandmasterPlayer(CPlayer.mo).GMSwordExp), (x - 4, y + 24), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
         DrawString(wwFont, String.Format("Wskl: %d", GrandmasterPlayer(CPlayer.mo).GMSwordSkill), (x - 4, y + 32), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
     }
-	*/
+	
 }
