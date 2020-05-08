@@ -77,7 +77,7 @@ class GMBaseSword : GMBaseWeapon
 		"----" A 0
 		{
 			swordtype st;
-			int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength );
+			int GMMeleeDamage = ( GrandmasterPlayer(invoker.owner).GMStrength + invoker.SwordTypes[GrandmasterPlayer(invoker.owner).GMSwordType].Might );
 			A_LogInt(GMMeleeDamage);
 			if ( invoker.SwordSwing == 10 )
 			{
