@@ -29,11 +29,15 @@ class GrandmasterStatusBar : HereticStatusBar
     
     void gmDrawWeapInfo(int x, int y)
     {
-        DrawString(wwFont, String.Format("Mt: %d", GrandmasterPlayer(CPlayer.mo).GMSwordType.swordtype.Might), (x - 4, y), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
-        //DrawString(wwFont, String.Format("Spd: %d", CPlayer.ReadyWeapon.SwordTypes[GrandmasterPlayer(CPlayer.mo.owner).GMSwordType].Speed), (x - 4, y + 8), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
-        //DrawString(wwFont, String.Format("Crt: %d", CPlayer.ReadyWeapon.SwordTypes[GrandmasterPlayer(CPlayer.mo.owner).GMSwordType].Critical), (x - 4, y + 16), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
-        DrawString(wwFont, String.Format("Sxp: %d", GrandmasterPlayer(CPlayer.mo).GMSwordExp), (x - 4, y + 24), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
-        DrawString(wwFont, String.Format("Wskl: %d", GrandmasterPlayer(CPlayer.mo).GMSwordSkill), (x - 4, y + 32), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+        if (CPlayer.ReadyWeapon is 'GMBaseSword')
+        {
+            let sword = GMBaseSword (CPlayer.ReadyWeapon);
+            DrawString(wwFont, String.Format("Mt: %d", sword.SwordTypes[0].Might), (x - 4, y), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+            DrawString(wwFont, String.Format("Spd: %d%%", (sword.SwordTypes[0].Speed * 100.0)), (x - 4, y + 8), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+            DrawString(wwFont, String.Format("Crt: %d%%", (sword.SwordTypes[0].Critical * 100.0)), (x - 4, y + 16), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+            DrawString(wwFont, String.Format("Sxp: %d", GrandmasterPlayer(CPlayer.mo).GMSwordExp), (x - 4, y + 24), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+            DrawString(wwFont, String.Format("Wskl: %d", GrandmasterPlayer(CPlayer.mo).GMSwordSkill), (x - 4, y + 32), DI_TEXT_ALIGN_RIGHT | DI_SCREEN_RIGHT_BOTTOM, Font.CR_UNTRANSLATED);
+        }
     }
 	
 }
