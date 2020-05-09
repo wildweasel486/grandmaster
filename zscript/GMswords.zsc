@@ -34,12 +34,13 @@ class GMBaseSword : GMBaseWeapon
 	int SwordSwing; // Tracks how far across the screen the melee attack is.
 	int SwordBusy; // Is an attack currently happening?
 	
+	/* I guess this wasn't being used at all?
 	action void GM_SwordAttack()
 	{
 		if ( invoker.SwordBusy != 1 ) { 
 			A_Overlay(69, "SwordSwing");
 		}
-	}
+	} */
 	
 	States
 	{
@@ -67,6 +68,16 @@ class GMBaseSword : GMBaseWeapon
 			invoker.SwordBusy = 1;
 			// !!TODO - Here's also where I'd be deciding the onscreen graphic for attacks,
 			// but I have no idea how to do that right now.
+			// MajorCooke advised this section but I don't know how it works...
+			
+			/*
+			let wep = plr.FindPSprite(PSP_WEAPON);
+			if (wep)
+			{
+				wep.Frame = A;
+				wep.Sprite = GetSpriteIndex(invoker.SwordTypes[GrandmasterPlayer(invoker.owner).GMSwordType].Picture);
+			}
+			*/
 		}
 		"----" A 0 {
 			A_WeaponOffset(-160, 8);
